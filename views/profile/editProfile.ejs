@@ -1,0 +1,28 @@
+<%- include('../partials/header') %>
+
+<div class="container container-main" style="max-width:520px;">
+  <h2 class="mb-4 text-center">Edit Your Profile</h2>
+  <% if (error) { %>
+    <div class="alert alert-danger"><%= error %></div>
+  <% } %>
+  <form method="POST" enctype="multipart/form-data" action="/profile/update">
+    <div class="mb-3">
+      <label class="form-label fw-semibold" for="username">Username</label>
+      <input type="text" class="form-control" id="username" name="username" value="<%= user.username %>" required />
+    </div>
+    <div class="mb-3">
+      <label class="form-label fw-semibold" for="bio">Bio</label>
+      <textarea class="form-control" id="bio" name="bio" rows="4"><%= user.bio %></textarea>
+    </div>
+    <div class="mb-4">
+      <label class="form-label fw-semibold" for="profilePicture">Profile Picture</label>
+      <input type="file" class="form-control" id="profilePicture" name="profilePicture" />
+      <% if (user.profilePicture) { %>
+        <img src="/uploads/<%= user.profilePicture %>" class="img-fluid mt-2 rounded" style="width:100px;" alt="Profile">
+      <% } %>
+    </div>
+    <button type="submit" class="btn btn-primary w-100 py-2">Update Profile</button>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>

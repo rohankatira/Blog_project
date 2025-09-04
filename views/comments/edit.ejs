@@ -1,0 +1,11 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4 mb-5" style="max-width: 600px;">
+  <h3>Edit Comment</h3>
+  <form action="/comment/update/<%= comment._id %>" method="POST">
+    <textarea name="text" rows="4" required class="form-control"><%= comment.text %></textarea>
+    <button type="submit" class="btn btn-primary mt-2">Update Comment</button>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>

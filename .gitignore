@@ -1,0 +1,20 @@
+# Node modules folder
+node_modules/
+
+# Environment variables file
+.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Uploaded files folder
+src/public/uploads/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE files (optional, for example VSCode)
+.vscode/

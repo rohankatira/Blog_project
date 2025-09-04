@@ -1,0 +1,61 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-4 mb-5" style="max-width: 800px;">
+  <div class="card mb-4">
+    <% if (blog.image) { %>
+      <img src="/uploads/<%= blog.image %>" alt="Blog Image" class="card-img-top img-fluid" style="max-height:400px; object-fit: contain; width:100%;" />
+    <% } %>
+    <div class="card-body">
+      <h2><%= blog.title %></h2>
+      <div class="small text-muted mb-2">
+        by <%= blog.author.username %> &middot; 
+        <%= new Date(blog.createdAt).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }) %>
+      </div>
+      <p><%= blog.content %></p>
+
+      <% if (user && blog.author._id.toString() === user.id) { %>
+        <a href="/blogs/edit/<%= blog._id %>" class="btn btn-secondary btn-sm">Edit Blog</a>
+        <form action="/blogs/delete/<%= blog._id %>" method="POST" style="display:inline;">
+          <button type="submit" class="btn btn-danger btn-sm">Delete Blog</button>
+        </form>
+      <% } %>
+
+      <form action="/blogs/like/<%= blog._id %>" method="POST" class="mt-3">
+        <button type="submit" class="btn btn-outline-primary btn-sm">Like (<%= likesCount %>)</button>
+      </form>
+    </div>
+  </div>
+
+  <h4>Comments</h4>
+  <% if (comments.length > 0) { %>
+    <% comments.forEach(comment => { %>
+      <div class="border p-3 rounded mb-3">
+        <strong><%= comment.user.username %></strong> 
+        <small class="text-muted">
+          <%= new Date(comment.createdAt).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }) %>
+        </small>
+        <p><%= comment.text %></p>
+        <% if (user && comment.user._id.toString() === user.id) { %>
+          <a href="/comment/edit/<%= comment._id %>" class="btn btn-secondary btn-sm">Edit</a>
+          <form action="/comment/delete/<%= comment._id %>" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+          </form>
+        <% } %>
+      </div>
+    <% }); %>
+  <% } else { %>
+    <p>No comments yet.</p>
+  <% } %>
+
+  <% if (user) { %>
+    <form action="/comment/add" method="POST" class="mt-4">
+      <input type="hidden" name="blogId" value="<%= blog._id %>">
+      <textarea name="text" rows="3" class="form-control" placeholder="Add your comment..." required></textarea>
+      <button type="submit" class="btn btn-primary mt-2">Add Comment</button>
+    </form>
+  <% } else { %>
+    <p><a href="/auth/signin" class="text-primary">Sign in</a> to comment.</p>
+  <% } %>
+</div>
+
+<%- include('../partials/footer') %>

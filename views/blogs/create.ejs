@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+
+<div class="container container-main" style="max-width:600px;">
+  <h2 class="mb-4 text-center">Create Blog</h2>
+
+  <% if (error) { %>
+    <div class="alert alert-danger text-center"><%= error %></div>
+  <% } %>
+
+  <form method="POST" enctype="multipart/form-data" action="/blogs/create">
+    <div class="mb-3">
+      <label for="title" class="form-label fw-semibold">Blog Title</label>
+      <input type="text" class="form-control" id="title" name="title" required autofocus />
+    </div>
+    <div class="mb-3">
+      <label for="content" class="form-label fw-semibold">Content</label>
+      <textarea class="form-control" id="content" name="content" rows="7" required></textarea>
+    </div>
+    <div class="mb-4">
+      <label for="image" class="form-label fw-semibold">Blog Image</label>
+      <input type="file" class="form-control" id="image" name="image" />
+    </div>
+    <button type="submit" class="btn btn-primary w-100 py-2">Create Blog</button>
+  </form>
+</div>
+
+<%- include('../partials/footer') %>
