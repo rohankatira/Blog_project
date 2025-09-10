@@ -25,7 +25,7 @@ exports.renderEditComment = async (req, res) => {
     if (!comment) return res.status(404).render('error', { error: 'Comment not found', user: req.user });
     if (comment.user.toString() !== req.user.id) return res.status(403).render('error', { error: 'Not authorized', user: req.user });
 
-    res.render('comments/edit', { comment, user: req.user });
+    res.render('./comments/edit', { comment, user: req.user });
   } catch (err) {
     console.error(err);
     res.status(500).render('error', { error: 'Internal Server Error', user: req.user });
